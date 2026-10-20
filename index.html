@@ -1,413 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="张宇涵的个人主页：个人简介、数学学习与生活日记。">
-  <title>张宇涵 | 个人主页</title>
-  <style>
-    :root {
-      --bg: #f7f8f5;
-      --white: #ffffff;
-      --ink: #193637;
-      --muted: #647879;
-      --green: #287478;
-      --gold: #c99650;
-      --line: #e2e9e4;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font: 16px/1.8 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-    }
-    a { color: inherit; text-decoration: none; }
-    a:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
-    .container { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
-    .skip-link { position: absolute; top: -60px; left: 12px; background: white; padding: 8px 14px; z-index: 99; }
-    .skip-link:focus { top: 12px; }
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(247, 248, 245, .96);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(10px);
-    }
-    .nav-wrap {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .logo { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: var(--green); }
-    nav { display: flex; flex-wrap: wrap; gap: 8px 25px; }
-    nav a { font-size: 14px; font-weight: 600; transition: color .2s; }
-    nav a:hover { color: var(--green); }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 65px;
-      align-items: center;
-      padding: 100px 0 95px;
-    }
-    .eyebrow { color: var(--green); letter-spacing: 3px; font-size: 12px; font-weight: 800; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 { margin: 14px 0 18px; font-size: clamp(40px, 6vw, 68px); line-height: 1.25; letter-spacing: 1px; }
-    h1 span { color: var(--green); }
-    .hero p { color: var(--muted); max-width: 520px; font-size: 17px; }
-    .tag { display: inline-block; margin-bottom: 12px; color: var(--green); font-weight: 700; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-    .btn { padding: 10px 24px; border: 1px solid var(--green); border-radius: 999px; font-size: 14px; font-weight: 700; }
-    .btn.primary { background: var(--green); color: var(--white); }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px #19363718; }
-
-    .math-card {
-      position: relative;
-      min-height: 320px;
-      border-radius: 26px;
-      overflow: hidden;
-      border: 1px solid #d7e8db;
-      background: linear-gradient(145deg, #dcefe7, #f9eddb);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 24px 55px #1936370c;
-    }
-    .math-card::before, .math-card::after {
-      content: "";
-      position: absolute;
-      border: 1px solid #28747836;
-      border-radius: 50%;
-    }
-    .math-card::before { width: 260px; height: 260px; }
-    .math-card::after { width: 350px; height: 350px; }
-    .math-label, .equation, .math-caption { position: relative; z-index: 1; }
-    .math-label { color: var(--green); font-size: 12px; letter-spacing: 4px; font-weight: 800; }
-    .equation { margin: 21px 0; font: 42px Georgia, "Times New Roman", serif; white-space: nowrap; }
-    .equation sup { font-size: 55%; }
-    .math-caption { color: var(--muted); font-size: 14px; }
-
-    section.content-section { padding: 78px 0; border-top: 1px solid var(--line); }
-    .section-heading { margin-bottom: 30px; }
-    .section-heading small { color: var(--green); letter-spacing: 2px; font-weight: 800; }
-    h2 { font-size: 32px; margin: 6px 0 10px; }
-    .lead { color: var(--muted); max-width: 750px; }
-    .about-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 42px; align-items: start; }
-    .about-text { font-size: 16px; }
-    .timeline { display: grid; gap: 14px; }
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 66px 1fr;
-      gap: 18px;
-      padding: 19px 22px;
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-    }
-    .year { font-size: 21px; font-weight: 800; color: var(--gold); }
-    .timeline-item h3 { font-size: 16px; margin-bottom: 0; }
-    .timeline-item p { color: var(--muted); font-size: 13px; margin-bottom: 0; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .card {
-      padding: 27px;
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-    }
-    .card-number { color: var(--gold); font: bold 22px Georgia, serif; }
-    .card h3 { margin: 15px 0 8px; font-size: 20px; }
-    .card p { min-height: 64px; color: var(--muted); font-size: 14px; }
-    .status { color: var(--green); font-size: 12px; font-weight: 700; }
-    .diary-box {
-      padding: 36px;
-      background: var(--white);
-      border: 1px dashed #abc7bb;
-      border-radius: 18px;
-    }
-    .diary-box h3 { margin-bottom: 8px; font-size: 21px; }
-    .diary-box p { margin-bottom: 0; color: var(--muted); }
-    footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 13px; }
-
-
-
-    body.subpage-mode main { min-height: 65vh; }
-    body.subpage-mode .site-header { display: block; }
-    body.subpage-mode .home-view { display: none !important; }
-    body.subpage-mode .site-footer { display: none !important; }
-    body:not(.subpage-mode) .page-view { display: none !important; }
-    body.subpage-mode .page-view.active { display: block !important; }
-
-    .page-view { display: none; min-height: 65vh; padding: 58px 0 78px; }
-    .page-view.active { display: block; }
-    .page-intro { padding: 30px; background: linear-gradient(135deg, #e6f1e9, #fbf0df); border: 1px solid #d7e8db; border-radius: 20px; margin-bottom: 28px; }
-    .page-intro p { color: var(--muted); margin-bottom: 0; max-width: 780px; }
-    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-weight: 700; margin-bottom: 22px; }
-    .linked-card { display: block; transition: transform .2s, box-shadow .2s, border-color .2s; }
-    .linked-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px #19363712; border-color: #abc7bb; }
-    .card-link-note { display: inline-block; margin-top: 12px; color: var(--green); font-size: 13px; font-weight: 800; }
-    .content-placeholder { padding: 24px; background: #fff; border: 1px dashed #abc7bb; border-radius: 16px; color: var(--muted); }
-    .diary-list { display: grid; gap: 16px; }
-    .diary-entry { padding: 25px 28px; background: var(--white); border: 1px solid var(--line); border-radius: 18px; }
-    .diary-entry time { color: var(--gold); font-size: 13px; font-weight: 800; letter-spacing: 1px; }
-    .diary-entry h3 { margin: 8px 0; font-size: 20px; }
-    .diary-entry p { margin-bottom: 0; color: var(--muted); }
-    .contact-link { color: var(--green); font-weight: 700; overflow-wrap: anywhere; }
-    .site-footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 13px; }
-    .site-footer p { margin: 6px 0; }
-    .footer-note { font-size: 11px; opacity: .8; }
-    @media (max-width: 760px) {
-      .page-view { padding: 38px 0 55px; }
-      .page-intro { padding: 23px; }
-      .diary-entry { padding: 22px; }
-    }
-
-    @media (max-width: 760px) {
-      .nav-wrap { align-items: flex-start; flex-direction: column; padding: 15px 0; gap: 10px; }
-      nav { gap: 8px 18px; }
-      html { scroll-padding-top: 120px; }
-      .hero { grid-template-columns: 1fr; gap: 32px; padding: 65px 0; }
-      .math-card { min-height: 260px; }
-      .about-layout, .cards { grid-template-columns: 1fr; }
-      section.content-section { padding: 55px 0; }
-      .diary-box { padding: 25px; }
-    }
-    @media (max-width: 360px) {
-      .equation { font-size: 34px; }
-      .timeline-item { grid-template-columns: 1fr; gap: 3px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f7f2">
+<meta name="description" content="张宇涵的个人主页：数学学习、竞赛经历与生活日记。">
+<title>个人主页 | 张宇涵</title>
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">跳转到正文</a>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="logo" href="#home" aria-label="张宇涵的主页">ZYH.</a>
-      <nav aria-label="主导航">
-        <a href="#home">主页</a>
-        <a href="#about">个人简介</a>
-        <a href="#study">学习内容</a>
-        <a href="#diary">生活日记</a>
-      </nav>
-    </div>
-  </header>
+<a class="skip" href="#main">跳转到正文</a>
+<header class="header"><div class="wrap header-inner">
+ <a class="brand" href="" aria-label="张宇涵 · 返回主页">
+ <span class="brand-mark">Z.</span><span class="brand-text"><strong>张宇涵</strong><small>PERSONAL FIELD NOTES</small></span></a>
+ <nav class="nav" aria-label="主导航"><a href="" aria-current="page">主页</a>
+<a href="about/">关于我</a>
+<a href="studynotes/">学习内容</a>
+<a href="diary/">生活日记</a>
+ <a class="nav-mail" href="mailto:2600010797@stu.pku.edu.cn">写封邮件 ↗</a></nav>
+ <details class="mobile-nav"><summary>菜单 ☰</summary><nav class="mobile-links" aria-label="移动端导航">
+ <a href="" aria-current="page">主页</a>
+<a href="about/">关于我</a>
+<a href="studynotes/">学习内容</a>
+<a href="diary/">生活日记</a><a href="mailto:2600010797@stu.pku.edu.cn">联系邮箱 ↗</a></nav></details>
+</div></header>
+<main id="main">
 
-  <main id="main">
-    <!-- 主页 -->
-    <section id="home" class="container hero home-view" aria-label="主页">
-      <div>
-        <div class="eyebrow">WELCOME TO MY SPACE</div>
-        <h1>你好，我是<br><span>张宇涵。</span></h1>
-        <div class="tag">北京大学数学科学学院 · 2026级本科生</div>
-        <p>很高兴与你在这里相遇。这是我的个人主页，我会在这里记录数学学习中的思考，以及生活里的点滴。</p>
-        <div class="actions">
-          <a class="btn primary" href="#about">了解我</a>
-          <a class="btn" href="#study">看看学习内容</a>
-        </div>
-      </div>
-      <div class="math-card" aria-label="数学公式装饰">
-        <div class="math-label">THE BEAUTY OF MATH</div>
-        <div class="equation">e<sup>iπ</sup> + 1 = 0</div>
-        <div class="math-caption">在数学中探索无限可能</div>
-      </div>
-    </section>
+<section class="wrap hero">
+  <div><div class="eyebrow">A LITTLE SPACE FOR WONDER</div>
+  <h1>你好，我是<br><span>张宇涵。</span></h1>
+  <div class="identity">北京大学数学科学学院 · 2026 级本科生</div>
+  <div class="actions"><a class="button primary" href="studynotes/">翻开学习笔记 ↗</a><a class="button" href="about/">认识我 →</a></div></div>
+  <div class="hero-art" role="img" aria-label="以欧拉恒等式为主题的数学插画">
+    <span class="art-label">FIELD NOTES · VOL. 01</span>
+    <span class="art-star" aria-hidden="true">✳</span><span class="art-star right" aria-hidden="true">✶</span>
+    <span class="art-equation">e<sup>iπ</sup> + 1 = 0</span><span class="art-sub">SIMPLICITY · SYMMETRY · BEAUTY</span>
+    <span class="art-stamp">Mathematics is a way of seeing.</span>
+  </div>
+</section>
+<section class="section"><div class="wrap">
+  <div class="section-head"><div><div class="eyebrow">01 / NOTES & IDEAS</div><h2>数学，慢慢学。</h2>
+  <p>从分析、代数和几何出发，留下解题的痕迹，也记录重新理解一个概念时的欣喜。</p></div>
+  <a class="link-more" href="studynotes/">所有学习内容 ↗</a></div>
+  <div class="card-grid"><a class="subject-card" href="studynotes/analysis/" aria-label="进入分析专题">
+       <div class="card-no">01 / ANALYSIS</div><div class="card-art"><svg viewBox="0 0 153 91" fill="none" aria-hidden="true"><path d="M10 73H143M23 81V8" stroke="#a2bba9"/><path d="M23 70C46 70 47 20 75 20S106 65 141 17" stroke="#337361" stroke-width="2.5" stroke-linecap="round"/><path d="M75 20V73" stroke="#b66c55" stroke-dasharray="4 4"/><circle cx="75" cy="20" r="4" fill="#b66c55"/></svg></div>
+       <h3>分析</h3><p>本学期，我将学习课程数学分析（I）。</p>
+       <div class="card-bottom">进入专题 <span aria-hidden="true">↗</span></div>
+    </a><a class="subject-card" href="studynotes/algebra/" aria-label="进入代数专题">
+       <div class="card-no">02 / ALGEBRA</div><div class="card-art"><svg viewBox="0 0 153 91" fill="none" aria-hidden="true"><path d="M28 9H18V83H28M125 9H135V83H125" stroke="#337361" stroke-width="2.2"/><g fill="#337361" font-family="Georgia" font-size="26" text-anchor="middle"><text x="48" y="37">a</text><text x="101" y="37">b</text><text x="48" y="70">c</text><text x="101" y="70">d</text></g></svg></div>
+       <h3>代数</h3><p>本学期，我将学习课程高等代数（I）、代数学（I）（实验班）。</p>
+       <div class="card-bottom">进入专题 <span aria-hidden="true">↗</span></div>
+    </a><a class="subject-card" href="studynotes/geometry/" aria-label="进入几何专题">
+       <div class="card-no">03 / GEOMETRY</div><div class="card-art"><svg viewBox="0 0 153 91" fill="none" aria-hidden="true"><circle cx="80" cy="45" r="33" stroke="#337361" stroke-width="2"/><path d="M80 12L107 64L48 64Z" stroke="#b66c55" stroke-width="2"/><path d="M80 45L107 64M80 45L48 64" stroke="#337361" opacity=".5"/><circle cx="80" cy="45" r="4" fill="#b66c55"/></svg></div>
+       <h3>几何</h3><p>本学期，我将学习课程几何学。</p>
+       <div class="card-bottom">进入专题 <span aria-hidden="true">↗</span></div>
+    </a></div>
+</div></section>
+<section class="section"><div class="wrap">
+  <div class="statement"><div><div class="quote" aria-hidden="true">“</div><h2>以好奇为起点，<br>以认真作回答。</h2></div>
+  <p>目前在北京大学数学科学学院学习。曾参加中国数学奥林匹克，获得 2024 年铜牌与 2025 年金牌。</p></div>
+</div></section>
+<section class="section"><div class="wrap">
+  <div class="section-head"><div><div class="eyebrow">02 / BEYOND MATHEMATICS</div><h2>日常，也值得珍藏。</h2><p>不只有公式，还有生活。日记会在这里慢慢生长。</p></div>
+  <a class="link-more" href="diary/">进入日记本 ↗</a></div>
+  <div class="diary-band">
+    <div class="diary-main"><div class="eyebrow" style="color:#a9cabb">DEAR DIARY / PERSONAL ARCHIVE</div>
+      <h3>一些普通的日子，<br>也会发光。</h3>
+      <p>校园里的风、一本好书、一次偶然的散步。<br>有些故事值得细细写下。</p>
+      <a href="diary/">翻开生活日记 ↗</a></div>
+    <div class="diary-side"><span style="color:var(--gold);font:30px Georgia">✳</span><h3>写给未来的自己</h3>
+      <p>日记页面已经建立，文章会陆续补充。愿多年后，仍能找到某个平凡日子的温度。</p>
+      <a class="link-more" href="diary/">查看日记目录 ↗</a></div>
+  </div>
+</div></section>
+<section class="wrap" style="padding:0 0 85px"><div class="contact-band"><div>
+  <h2>有问题，欢迎来信。</h2><p>关于数学、学习，或只是简单打个招呼。</p>
+</div><a href="mailto:2600010797@stu.pku.edu.cn">2600010797@stu.pku.edu.cn ↗</a></div></section>
 
-    <!-- 个人简介 -->
-    <section id="about" class="content-section home-view" aria-labelledby="about-title">
-      <div class="container">
-        <div class="section-heading">
-          <small>ABOUT ME</small>
-          <h2 id="about-title">个人简介</h2>
-        </div>
-        <div class="about-layout">
-          <div class="about-text">
-            <p>大家好，我叫<strong>张宇涵</strong>，是<strong>北京大学数学科学学院2026级本科生</strong>。</p>
-            <p>我曾参加中国数学奥林匹克，并于2024年获得铜牌、2025年获得金牌。未来，希望继续探索有趣的数学问题，也在这里分享自己的成长与收获。</p>
-          </div>
-          <div class="timeline" aria-label="学习与竞赛经历">
-            <article class="timeline-item">
-              <div class="year">2024</div>
-              <div><h3>中国数学奥林匹克 · 铜牌</h3><p>数学竞赛经历</p></div>
-            </article>
-            <article class="timeline-item">
-              <div class="year">2025</div>
-              <div><h3>中国数学奥林匹克 · 金牌</h3><p>数学竞赛经历</p></div>
-            </article>
-            <article class="timeline-item">
-              <div class="year">2026</div>
-              <div><h3>北京大学数学科学学院</h3><p>2026级本科生</p></div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 学习内容主页：各专题可独立进入，未来可继续添加笔记与文件 -->
-    <section id="study" class="content-section home-view" aria-labelledby="study-title">
-      <div class="container">
-        <div class="section-heading">
-          <small>STUDY NOTES</small>
-          <h2 id="study-title">学习内容</h2>
-          <p class="lead">这里整理数学学习中的课程笔记、解题思路与专题探索。每一次记录，都是理解向前迈出的一小步。</p>
-        </div>
-        <div class="page-intro">
-          <h3>关于我的数学学习</h3>
-          <p>本栏目将围绕分析、代数与几何三个方向，持续收录课程内容、证明思路、习题心得以及日后上传的讲义和资料。点击任一专题即可进入对应子页。</p>
-        </div>
-        <div class="cards">
-          <a class="card linked-card" href="#analysis">
-            <div class="card-number">01</div><h3>分析</h3>
-            <p>本学期，我将学习课程数学分析（I）。</p>
-            <span class="status">专题页面</span><span class="card-link-note">进入分析 →</span>
-          </a>
-          <a class="card linked-card" href="#algebra">
-            <div class="card-number">02</div><h3>代数</h3>
-            <p>本学期，我将学习课程高等代数（I）、代数学（I）（实验班）。</p>
-            <span class="status">专题页面</span><span class="card-link-note">进入代数 →</span>
-          </a>
-          <a class="card linked-card" href="#geometry">
-            <div class="card-number">03</div><h3>几何</h3>
-            <p>本学期，我将学习课程几何学。</p>
-            <span class="status">专题页面</span><span class="card-link-note">进入几何 →</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 分析子页 -->
-    <section id="analysis" class="page-view" aria-labelledby="analysis-title">
-      <div class="container">
-        <a class="back-link" href="#study">← 返回学习内容</a>
-        <div class="section-heading"><small>STUDY NOTES / 01</small><h2 id="analysis-title">分析</h2><p class="lead">数学分析（I）专题空间</p></div>
-        <div class="page-intro"><h3>专题综述</h3><p>这里将记录数学分析课程中的核心概念、重要定理、证明思路与习题总结。后续可按章节添加笔记、讲义和其他学习文件。</p></div>
-        <div class="content-placeholder"><strong>内容正在整理中</strong><p>未来上传的分析相关文件与笔记可以放在这里，并按主题持续扩充。</p></div>
-      </div>
-    </section>
-
-    <!-- 代数子页 -->
-    <section id="algebra" class="page-view" aria-labelledby="algebra-title">
-      <div class="container">
-        <a class="back-link" href="#study">← 返回学习内容</a>
-        <div class="section-heading"><small>STUDY NOTES / 02</small><h2 id="algebra-title">代数</h2><p class="lead"> 高等代数（I）、代数学（I）专题空间</p></div>
-        <div class="page-intro"><h3>专题综述</h3><p>这里将整理线性代数相关内容、代数概念与结构、定理证明以及典型例题。后续可按课程或主题分类添加学习文件。</p></div>
-        <div class="content-placeholder"><strong>内容正在整理中</strong><p>未来上传的代数相关文件与笔记可以放在这里，并按主题持续扩充。</p></div>
-      </div>
-    </section>
-
-    <!-- 几何子页 -->
-    <section id="geometry" class="page-view" aria-labelledby="geometry-title">
-      <div class="container">
-        <a class="back-link" href="#study">← 返回学习内容</a>
-        <div class="section-heading"><small>STUDY NOTES / 03</small><h2 id="geometry-title">几何</h2><p class="lead">几何学专题空间</p></div>
-        <div class="page-intro"><h3>专题综述</h3><p>这里将收录几何学课程中的重要对象、几何直观、证明方法与专题探索。后续可以上传讲义、图片或其他学习资料。</p></div>
-        <div class="content-placeholder"><strong>内容正在整理中</strong><p>未来上传的几何相关文件与笔记可以放在这里，并按主题持续扩充。</p></div>
-      </div>
-    </section>
-
-    <!-- 生活日记主页：支持逐篇查看 -->
-    <section id="diary" class="content-section home-view" aria-labelledby="diary-title">
-      <div class="container">
-        <div class="section-heading">
-          <small>DAILY LIFE</small><h2 id="diary-title">生活日记</h2>
-          <p class="lead">除了数学，还有很多值得珍藏的小事。这里会慢慢收录校园生活、阅读、散步和日常里的小发现。</p>
-        </div>
-        <div class="diary-list">
-          <article class="diary-entry">
-            <time datetime="">待添加日期</time><h3>第一篇日记</h3>
-            <p>这篇日记还在等待书写。之后可以把正文补充进来，并为每篇日记设置独立标题、日期与内容。</p>
-            <a class="card-link-note" href="#diary-entry-1">查看日记说明 →</a>
-          </article>
-          <article class="diary-entry">
-            <time datetime="">待添加日期</time><h3>第二篇日记</h3>
-            <p>留给下一段值得记住的经历。新增日记时，可以复制这张卡片并链接到对应的日记子页。</p>
-            <a class="card-link-note" href="#diary-entry-2">查看日记说明 →</a>
-          </article>
-          <article class="diary-entry">
-            <time datetime="">待添加日期</time><h3>第三篇日记</h3>
-            <p>一个持续更新的生活记录角落，未来可以在这里展示更多篇日记。</p>
-            <a class="card-link-note" href="#diary-entry-3">查看日记说明 →</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="diary-entry-1" class="page-view" aria-labelledby="diary-entry-1-title">
-      <div class="container"><a class="back-link" href="#diary">← 返回生活日记</a>
-        <div class="section-heading"><small>DAILY LIFE / ENTRY 01</small><h2 id="diary-entry-1-title">第一篇日记</h2><p class="lead">日期：待添加</p></div>
-        <article class="diary-entry"><p>这里是第一篇日记的正文区域。你可以在此补充当天的经历、想法与照片说明。</p></article>
-      </div>
-    </section>
-    <section id="diary-entry-2" class="page-view" aria-labelledby="diary-entry-2-title">
-      <div class="container"><a class="back-link" href="#diary">← 返回生活日记</a>
-        <div class="section-heading"><small>DAILY LIFE / ENTRY 02</small><h2 id="diary-entry-2-title">第二篇日记</h2><p class="lead">日期：待添加</p></div>
-        <article class="diary-entry"><p>这里是第二篇日记的正文区域。你可以在此补充当天的经历、想法与照片说明。</p></article>
-      </div>
-    </section>
-    <section id="diary-entry-3" class="page-view" aria-labelledby="diary-entry-3-title">
-      <div class="container"><a class="back-link" href="#diary">← 返回生活日记</a>
-        <div class="section-heading"><small>DAILY LIFE / ENTRY 03</small><h2 id="diary-entry-3-title">第三篇日记</h2><p class="lead">日期：待添加</p></div>
-        <article class="diary-entry"><p>这里是第三篇日记的正文区域。你可以在此补充当天的经历、想法与照片说明。</p></article>
-      </div>
-    </section>
-    <script>
-      // Keep the shared navigation visible. Child routes show only their own page;
-      // the homepage sections and footer are hidden until the user returns to a home route.
-      (function () {
-        const homeRoutes = ['home', 'about', 'study', 'diary'];
-        const childRoutes = ['analysis', 'algebra', 'geometry', 'diary-entry-1', 'diary-entry-2', 'diary-entry-3'];
-
-        function showRoute() {
-          const route = (window.location.hash || '#home').slice(1);
-          const isChildRoute = childRoutes.includes(route);
-          document.body.classList.toggle('subpage-mode', isChildRoute);
-
-          document.querySelectorAll('.page-view').forEach(page => {
-            page.classList.toggle('active', page.id === route);
-            page.setAttribute('aria-hidden', page.id === route ? 'false' : 'true');
-          });
-
-          document.querySelectorAll('.home-view').forEach(section => {
-            section.setAttribute('aria-hidden', isChildRoute ? 'true' : 'false');
-          });
-
-          document.querySelectorAll('nav a').forEach(link => {
-            if (link.getAttribute('href') === '#' + route) {
-              link.setAttribute('aria-current', 'page');
-            } else {
-              link.removeAttribute('aria-current');
-            }
-          });
-
-          if (isChildRoute) {
-            window.scrollTo(0, 0);
-          } else {
-            const target = document.getElementById(homeRoutes.includes(route) ? route : 'home');
-            if (target) {
-              window.scrollTo(0, 0);
-              if (route !== 'home') {
-                requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-              }
-            }
-          }
-        }
-
-        window.addEventListener('hashchange', showRoute);
-        showRoute();
-      })();
-    </script>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 张宇涵 · 记录学习，也记录生活</p>
-      <p>联系邮箱：<a class="contact-link" href="mailto:2600010797@stu.pku.edu.cn">2600010797@stu.pku.edu.cn</a></p>
-      <p class="footer-note">本网页是根据2026年罗英伟教授所教授课程计算概论（B）课程内容，在与ChatGPT 5.5 Thinking大模型的讨论中所创作。</p>
-    </div>
-  </footer>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="footer-upper"><div><div class="footer-brand">张宇涵 <i>Field Notes.</i></div>
+<p>记录学习，也记录生活。愿好奇心常在。</p></div>
+<div class="footer-contact">联系我<br><a href="mailto:2600010797@stu.pku.edu.cn">2600010797@stu.pku.edu.cn ↗</a></div>
+</div><div class="footer-line"></div>
+<div class="footer-bottom"><span>© 2026 ZHANG YUHAN · MADE WITH CURIOSITY</span><a href="">返回主页 ↑</a></div>
+<p class="fine">本网页是根据2026年罗英伟教授所教授课程计算概论（B）课程内容，在与ChatGPT 5.5 Thinking大模型的讨论中所创作。</p>
+</div></footer>
 </body>
 </html>
