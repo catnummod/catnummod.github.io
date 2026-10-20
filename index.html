@@ -134,6 +134,39 @@
     .diary-box p { margin-bottom: 0; color: var(--muted); }
     footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 13px; }
 
+
+
+    body.subpage-mode main { min-height: 65vh; }
+    body.subpage-mode .site-header { display: block; }
+    body.subpage-mode .home-view { display: none !important; }
+    body.subpage-mode .site-footer { display: none !important; }
+    body:not(.subpage-mode) .page-view { display: none !important; }
+    body.subpage-mode .page-view.active { display: block !important; }
+
+    .page-view { display: none; min-height: 65vh; padding: 58px 0 78px; }
+    .page-view.active { display: block; }
+    .page-intro { padding: 30px; background: linear-gradient(135deg, #e6f1e9, #fbf0df); border: 1px solid #d7e8db; border-radius: 20px; margin-bottom: 28px; }
+    .page-intro p { color: var(--muted); margin-bottom: 0; max-width: 780px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-weight: 700; margin-bottom: 22px; }
+    .linked-card { display: block; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .linked-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px #19363712; border-color: #abc7bb; }
+    .card-link-note { display: inline-block; margin-top: 12px; color: var(--green); font-size: 13px; font-weight: 800; }
+    .content-placeholder { padding: 24px; background: #fff; border: 1px dashed #abc7bb; border-radius: 16px; color: var(--muted); }
+    .diary-list { display: grid; gap: 16px; }
+    .diary-entry { padding: 25px 28px; background: var(--white); border: 1px solid var(--line); border-radius: 18px; }
+    .diary-entry time { color: var(--gold); font-size: 13px; font-weight: 800; letter-spacing: 1px; }
+    .diary-entry h3 { margin: 8px 0; font-size: 20px; }
+    .diary-entry p { margin-bottom: 0; color: var(--muted); }
+    .contact-link { color: var(--green); font-weight: 700; overflow-wrap: anywhere; }
+    .site-footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 13px; }
+    .site-footer p { margin: 6px 0; }
+    .footer-note { font-size: 11px; opacity: .8; }
+    @media (max-width: 760px) {
+      .page-view { padding: 38px 0 55px; }
+      .page-intro { padding: 23px; }
+      .diary-entry { padding: 22px; }
+    }
+
     @media (max-width: 760px) {
       .nav-wrap { align-items: flex-start; flex-direction: column; padding: 15px 0; gap: 10px; }
       nav { gap: 8px 18px; }
@@ -166,7 +199,7 @@
 
   <main id="main">
     <!-- 主页 -->
-    <section id="home" class="container hero" aria-label="主页">
+    <section id="home" class="container hero home-view" aria-label="主页">
       <div>
         <div class="eyebrow">WELCOME TO MY SPACE</div>
         <h1>你好，我是<br><span>张宇涵。</span></h1>
@@ -185,7 +218,7 @@
     </section>
 
     <!-- 个人简介 -->
-    <section id="about" class="content-section" aria-labelledby="about-title">
+    <section id="about" class="content-section home-view" aria-labelledby="about-title">
       <div class="container">
         <div class="section-heading">
           <small>ABOUT ME</small>
@@ -214,54 +247,167 @@
       </div>
     </section>
 
-    <!-- 学习内容：下面是准备更新的栏目，可自行替换成学习笔记 -->
-    <section id="study" class="content-section" aria-labelledby="study-title">
+    <!-- 学习内容主页：各专题可独立进入，未来可继续添加笔记与文件 -->
+    <section id="study" class="content-section home-view" aria-labelledby="study-title">
       <div class="container">
         <div class="section-heading">
           <small>STUDY NOTES</small>
           <h2 id="study-title">学习内容</h2>
-          <p class="lead">这里准备整理课程笔记、解题思路和感兴趣的数学话题，慢慢把思考积累下来。</p>
+          <p class="lead">这里整理数学学习中的课程笔记、解题思路与专题探索。每一次记录，都是理解向前迈出的一小步。</p>
+        </div>
+        <div class="page-intro">
+          <h3>关于我的数学学习</h3>
+          <p>本栏目将围绕分析、代数与几何三个方向，持续收录课程内容、证明思路、习题心得以及日后上传的讲义和资料。点击任一专题即可进入对应子页。</p>
         </div>
         <div class="cards">
-          <article class="card">
-            <div class="card-number">01</div>
-            <h3>分析</h3>
+          <a class="card linked-card" href="#analysis">
+            <div class="card-number">01</div><h3>分析</h3>
             <p>本学期，我将学习课程数学分析（I）。</p>
-            <span class="status">待更新</span>
-          </article>
-          <article class="card">
-            <div class="card-number">02</div>
-            <h3>代数</h3>
+            <span class="status">专题页面</span><span class="card-link-note">进入分析 →</span>
+          </a>
+          <a class="card linked-card" href="#algebra">
+            <div class="card-number">02</div><h3>代数</h3>
             <p>本学期，我将学习课程高等代数（I）、代数学（I）（实验班）。</p>
-            <span class="status">待更新</span>
-          </article>
-          <article class="card">
-            <div class="card-number">03</div>
-            <h3>几何</h3>
+            <span class="status">专题页面</span><span class="card-link-note">进入代数 →</span>
+          </a>
+          <a class="card linked-card" href="#geometry">
+            <div class="card-number">03</div><h3>几何</h3>
             <p>本学期，我将学习课程几何学。</p>
-            <span class="status">待更新</span>
-          </article>
+            <span class="status">专题页面</span><span class="card-link-note">进入几何 →</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- 生活日记：写好第一篇日记后，可替换下面的占位文字 -->
-    <section id="diary" class="content-section" aria-labelledby="diary-title">
+    <!-- 分析子页 -->
+    <section id="analysis" class="page-view" aria-labelledby="analysis-title">
+      <div class="container">
+        <a class="back-link" href="#study">← 返回学习内容</a>
+        <div class="section-heading"><small>STUDY NOTES / 01</small><h2 id="analysis-title">分析</h2><p class="lead">数学分析（I）专题空间</p></div>
+        <div class="page-intro"><h3>专题综述</h3><p>这里将记录数学分析课程中的核心概念、重要定理、证明思路与习题总结。后续可按章节添加笔记、讲义和其他学习文件。</p></div>
+        <div class="content-placeholder"><strong>内容正在整理中</strong><p>未来上传的分析相关文件与笔记可以放在这里，并按主题持续扩充。</p></div>
+      </div>
+    </section>
+
+    <!-- 代数子页 -->
+    <section id="algebra" class="page-view" aria-labelledby="algebra-title">
+      <div class="container">
+        <a class="back-link" href="#study">← 返回学习内容</a>
+        <div class="section-heading"><small>STUDY NOTES / 02</small><h2 id="algebra-title">代数</h2><p class="lead"> 高等代数（I）、代数学（I）专题空间</p></div>
+        <div class="page-intro"><h3>专题综述</h3><p>这里将整理线性代数相关内容、代数概念与结构、定理证明以及典型例题。后续可按课程或主题分类添加学习文件。</p></div>
+        <div class="content-placeholder"><strong>内容正在整理中</strong><p>未来上传的代数相关文件与笔记可以放在这里，并按主题持续扩充。</p></div>
+      </div>
+    </section>
+
+    <!-- 几何子页 -->
+    <section id="geometry" class="page-view" aria-labelledby="geometry-title">
+      <div class="container">
+        <a class="back-link" href="#study">← 返回学习内容</a>
+        <div class="section-heading"><small>STUDY NOTES / 03</small><h2 id="geometry-title">几何</h2><p class="lead">几何学专题空间</p></div>
+        <div class="page-intro"><h3>专题综述</h3><p>这里将收录几何学课程中的重要对象、几何直观、证明方法与专题探索。后续可以上传讲义、图片或其他学习资料。</p></div>
+        <div class="content-placeholder"><strong>内容正在整理中</strong><p>未来上传的几何相关文件与笔记可以放在这里，并按主题持续扩充。</p></div>
+      </div>
+    </section>
+
+    <!-- 生活日记主页：支持逐篇查看 -->
+    <section id="diary" class="content-section home-view" aria-labelledby="diary-title">
       <div class="container">
         <div class="section-heading">
-          <small>DAILY LIFE</small>
-          <h2 id="diary-title">生活日记</h2>
-          <p class="lead">除了数学，还有很多值得珍藏的小事。</p>
+          <small>DAILY LIFE</small><h2 id="diary-title">生活日记</h2>
+          <p class="lead">除了数学，还有很多值得珍藏的小事。这里会慢慢收录校园生活、阅读、散步和日常里的小发现。</p>
         </div>
-        <article class="diary-box">
-          <h3>📖 我的日记，即将开始</h3>
-          <p>这里暂时还没有日记。以后可以写下校园生活、一次散步、一本好书，或某个平凡却难忘的瞬间。</p>
-        </article>
+        <div class="diary-list">
+          <article class="diary-entry">
+            <time datetime="">待添加日期</time><h3>第一篇日记</h3>
+            <p>这篇日记还在等待书写。之后可以把正文补充进来，并为每篇日记设置独立标题、日期与内容。</p>
+            <a class="card-link-note" href="#diary-entry-1">查看日记说明 →</a>
+          </article>
+          <article class="diary-entry">
+            <time datetime="">待添加日期</time><h3>第二篇日记</h3>
+            <p>留给下一段值得记住的经历。新增日记时，可以复制这张卡片并链接到对应的日记子页。</p>
+            <a class="card-link-note" href="#diary-entry-2">查看日记说明 →</a>
+          </article>
+          <article class="diary-entry">
+            <time datetime="">待添加日期</time><h3>第三篇日记</h3>
+            <p>一个持续更新的生活记录角落，未来可以在这里展示更多篇日记。</p>
+            <a class="card-link-note" href="#diary-entry-3">查看日记说明 →</a>
+          </article>
+        </div>
       </div>
     </section>
+
+    <section id="diary-entry-1" class="page-view" aria-labelledby="diary-entry-1-title">
+      <div class="container"><a class="back-link" href="#diary">← 返回生活日记</a>
+        <div class="section-heading"><small>DAILY LIFE / ENTRY 01</small><h2 id="diary-entry-1-title">第一篇日记</h2><p class="lead">日期：待添加</p></div>
+        <article class="diary-entry"><p>这里是第一篇日记的正文区域。你可以在此补充当天的经历、想法与照片说明。</p></article>
+      </div>
+    </section>
+    <section id="diary-entry-2" class="page-view" aria-labelledby="diary-entry-2-title">
+      <div class="container"><a class="back-link" href="#diary">← 返回生活日记</a>
+        <div class="section-heading"><small>DAILY LIFE / ENTRY 02</small><h2 id="diary-entry-2-title">第二篇日记</h2><p class="lead">日期：待添加</p></div>
+        <article class="diary-entry"><p>这里是第二篇日记的正文区域。你可以在此补充当天的经历、想法与照片说明。</p></article>
+      </div>
+    </section>
+    <section id="diary-entry-3" class="page-view" aria-labelledby="diary-entry-3-title">
+      <div class="container"><a class="back-link" href="#diary">← 返回生活日记</a>
+        <div class="section-heading"><small>DAILY LIFE / ENTRY 03</small><h2 id="diary-entry-3-title">第三篇日记</h2><p class="lead">日期：待添加</p></div>
+        <article class="diary-entry"><p>这里是第三篇日记的正文区域。你可以在此补充当天的经历、想法与照片说明。</p></article>
+      </div>
+    </section>
+    <script>
+      // Keep the shared navigation visible. Child routes show only their own page;
+      // the homepage sections and footer are hidden until the user returns to a home route.
+      (function () {
+        const homeRoutes = ['home', 'about', 'study', 'diary'];
+        const childRoutes = ['analysis', 'algebra', 'geometry', 'diary-entry-1', 'diary-entry-2', 'diary-entry-3'];
+
+        function showRoute() {
+          const route = (window.location.hash || '#home').slice(1);
+          const isChildRoute = childRoutes.includes(route);
+          document.body.classList.toggle('subpage-mode', isChildRoute);
+
+          document.querySelectorAll('.page-view').forEach(page => {
+            page.classList.toggle('active', page.id === route);
+            page.setAttribute('aria-hidden', page.id === route ? 'false' : 'true');
+          });
+
+          document.querySelectorAll('.home-view').forEach(section => {
+            section.setAttribute('aria-hidden', isChildRoute ? 'true' : 'false');
+          });
+
+          document.querySelectorAll('nav a').forEach(link => {
+            if (link.getAttribute('href') === '#' + route) {
+              link.setAttribute('aria-current', 'page');
+            } else {
+              link.removeAttribute('aria-current');
+            }
+          });
+
+          if (isChildRoute) {
+            window.scrollTo(0, 0);
+          } else {
+            const target = document.getElementById(homeRoutes.includes(route) ? route : 'home');
+            if (target) {
+              window.scrollTo(0, 0);
+              if (route !== 'home') {
+                requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+              }
+            }
+          }
+        }
+
+        window.addEventListener('hashchange', showRoute);
+        showRoute();
+      })();
+    </script>
   </main>
 
-  <footer>© 2026 张宇涵 · 记录学习，也记录生活</footer>
-  <p class="footer-note">本网页是根据2026年罗英伟教授所教授课程计算概论（B）课程内容，在与ChatGPT 5.5 Thinking大模型的讨论中所创作。</p>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 张宇涵 · 记录学习，也记录生活</p>
+      <p>联系邮箱：<a class="contact-link" href="mailto:2600010797@stu.pku.edu.cn">2600010797@stu.pku.edu.cn</a></p>
+      <p class="footer-note">本网页是根据2026年罗英伟教授所教授课程计算概论（B）课程内容，在与ChatGPT 5.5 Thinking大模型的讨论中所创作。</p>
+    </div>
+  </footer>
 </body>
 </html>
