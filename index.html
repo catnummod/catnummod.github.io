@@ -1,71 +1,266 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>张宇涵的个人网页</title>
-  <link href="styles/site.css" rel="stylesheet" type="text/css">
+  <meta name="description" content="张宇涵的个人主页：个人简介、数学学习与生活日记。">
+  <title>张宇涵 | 个人主页</title>
+  <style>
+    :root {
+      --bg: #f7f8f5;
+      --white: #ffffff;
+      --ink: #193637;
+      --muted: #647879;
+      --green: #287478;
+      --gold: #c99650;
+      --line: #e2e9e4;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.8 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+    .container { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+    .skip-link { position: absolute; top: -60px; left: 12px; background: white; padding: 8px 14px; z-index: 99; }
+    .skip-link:focus { top: 12px; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(247, 248, 245, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    .nav-wrap {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: var(--green); }
+    nav { display: flex; flex-wrap: wrap; gap: 8px 25px; }
+    nav a { font-size: 14px; font-weight: 600; transition: color .2s; }
+    nav a:hover { color: var(--green); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 65px;
+      align-items: center;
+      padding: 100px 0 95px;
+    }
+    .eyebrow { color: var(--green); letter-spacing: 3px; font-size: 12px; font-weight: 800; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: 14px 0 18px; font-size: clamp(40px, 6vw, 68px); line-height: 1.25; letter-spacing: 1px; }
+    h1 span { color: var(--green); }
+    .hero p { color: var(--muted); max-width: 520px; font-size: 17px; }
+    .tag { display: inline-block; margin-bottom: 12px; color: var(--green); font-weight: 700; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .btn { padding: 10px 24px; border: 1px solid var(--green); border-radius: 999px; font-size: 14px; font-weight: 700; }
+    .btn.primary { background: var(--green); color: var(--white); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px #19363718; }
+
+    .math-card {
+      position: relative;
+      min-height: 320px;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid #d7e8db;
+      background: linear-gradient(145deg, #dcefe7, #f9eddb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 24px 55px #1936370c;
+    }
+    .math-card::before, .math-card::after {
+      content: "";
+      position: absolute;
+      border: 1px solid #28747836;
+      border-radius: 50%;
+    }
+    .math-card::before { width: 260px; height: 260px; }
+    .math-card::after { width: 350px; height: 350px; }
+    .math-label, .equation, .math-caption { position: relative; z-index: 1; }
+    .math-label { color: var(--green); font-size: 12px; letter-spacing: 4px; font-weight: 800; }
+    .equation { margin: 21px 0; font: 42px Georgia, "Times New Roman", serif; white-space: nowrap; }
+    .equation sup { font-size: 55%; }
+    .math-caption { color: var(--muted); font-size: 14px; }
+
+    section.content-section { padding: 78px 0; border-top: 1px solid var(--line); }
+    .section-heading { margin-bottom: 30px; }
+    .section-heading small { color: var(--green); letter-spacing: 2px; font-weight: 800; }
+    h2 { font-size: 32px; margin: 6px 0 10px; }
+    .lead { color: var(--muted); max-width: 750px; }
+    .about-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 42px; align-items: start; }
+    .about-text { font-size: 16px; }
+    .timeline { display: grid; gap: 14px; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 66px 1fr;
+      gap: 18px;
+      padding: 19px 22px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+    .year { font-size: 21px; font-weight: 800; color: var(--gold); }
+    .timeline-item h3 { font-size: 16px; margin-bottom: 0; }
+    .timeline-item p { color: var(--muted); font-size: 13px; margin-bottom: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      padding: 27px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+    .card-number { color: var(--gold); font: bold 22px Georgia, serif; }
+    .card h3 { margin: 15px 0 8px; font-size: 20px; }
+    .card p { min-height: 64px; color: var(--muted); font-size: 14px; }
+    .status { color: var(--green); font-size: 12px; font-weight: 700; }
+    .diary-box {
+      padding: 36px;
+      background: var(--white);
+      border: 1px dashed #abc7bb;
+      border-radius: 18px;
+    }
+    .diary-box h3 { margin-bottom: 8px; font-size: 21px; }
+    .diary-box p { margin-bottom: 0; color: var(--muted); }
+    footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 13px; }
+
+    @media (max-width: 760px) {
+      .nav-wrap { align-items: flex-start; flex-direction: column; padding: 15px 0; gap: 10px; }
+      nav { gap: 8px 18px; }
+      html { scroll-padding-top: 120px; }
+      .hero { grid-template-columns: 1fr; gap: 32px; padding: 65px 0; }
+      .math-card { min-height: 260px; }
+      .about-layout, .cards { grid-template-columns: 1fr; }
+      section.content-section { padding: 55px 0; }
+      .diary-box { padding: 25px; }
+    }
+    @media (max-width: 360px) {
+      .equation { font-size: 34px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 3px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="site-wrap" id="top">
-    <div class="topbar">
-      <a href="index.html" class="brand" aria-label="回到首页"><span class="brand-mark">✳</span> 张宇涵的个人网页</a>
-      <div class="navlinks">
-        <a href="#about">关于我</a>
-        <a href="#interests">我的爱好</a>
-        <a href="#progress">学习清单</a>
+  <a class="skip-link" href="#main">跳转到正文</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="logo" href="#home" aria-label="张宇涵的主页">ZYH.</a>
+      <nav aria-label="主导航">
+        <a href="#home">主页</a>
+        <a href="#about">个人简介</a>
+        <a href="#study">学习内容</a>
+        <a href="#diary">生活日记</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 主页 -->
+    <section id="home" class="container hero" aria-label="主页">
+      <div>
+        <div class="eyebrow">WELCOME TO MY SPACE</div>
+        <h1>你好，我是<br><span>张宇涵。</span></h1>
+        <div class="tag">北京大学数学科学学院 · 2026级本科生</div>
+        <p>很高兴与你在这里相遇。这是我的个人主页，我会在这里记录数学学习中的思考，以及生活里的点滴。</p>
+        <div class="actions">
+          <a class="btn primary" href="#about">了解我</a>
+          <a class="btn" href="#study">看看学习内容</a>
+        </div>
       </div>
-    </div>
+      <div class="math-card" aria-label="数学公式装饰">
+        <div class="math-label">THE BEAUTY OF MATH</div>
+        <div class="equation">e<sup>iπ</sup> + 1 = 0</div>
+        <div class="math-caption">在数学中探索无限可能</div>
+      </div>
+    </section>
 
-    <div class="hero" id="home">
-      <table class="hero-table" border="0">
-        <tr>
-          <td class="hero-copy">
-            <p class="eyebrow"><span class="little-dot">●</span> A LITTLE CORNER OF MY WORLD · 2026</p>
-            <h1>把好奇心，<br>装进<span class="hero-highlight">每一天。</span></h1>
-            <p class="hero-lead">你好，我是<strong>张宇涵</strong>。</p>
-            <p><a class="primary-link" href="#about">认识我一点点 <span>↗</span></a> <a class="text-link" href="journal.html">翻开我的收藏册 →</a></p>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <!-- 个人简介 -->
+    <section id="about" class="content-section" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-heading">
+          <small>ABOUT ME</small>
+          <h2 id="about-title">个人简介</h2>
+        </div>
+        <div class="about-layout">
+          <div class="about-text">
+            <p>大家好，我叫<strong>张宇涵</strong>，是<strong>北京大学数学科学学院2026级本科生</strong>。</p>
+            <p>我曾参加中国数学奥林匹克，并于2024年获得铜牌、2025年获得金牌。未来，希望继续探索有趣的数学问题，也在这里分享自己的成长与收获。</p>
+          </div>
+          <div class="timeline" aria-label="学习与竞赛经历">
+            <article class="timeline-item">
+              <div class="year">2024</div>
+              <div><h3>中国数学奥林匹克 · 铜牌</h3><p>数学竞赛经历</p></div>
+            </article>
+            <article class="timeline-item">
+              <div class="year">2025</div>
+              <div><h3>中国数学奥林匹克 · 金牌</h3><p>数学竞赛经历</p></div>
+            </article>
+            <article class="timeline-item">
+              <div class="year">2026</div>
+              <div><h3>北京大学数学科学学院</h3><p>2026级本科生</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="section-intro" id="about">
-      <p class="eyebrow">01 / A BIT ABOUT ME</p>
-      <h2>你好呀，<span class="accent-line">很高兴认识你。</span></h2>
-      <p class="keywords">我是 <span>张</span> <span>宇</span> <span>涵</span></p>
-    </div>
+    <!-- 学习内容：下面是准备更新的栏目，可自行替换成学习笔记 -->
+    <section id="study" class="content-section" aria-labelledby="study-title">
+      <div class="container">
+        <div class="section-heading">
+          <small>STUDY NOTES</small>
+          <h2 id="study-title">学习内容</h2>
+          <p class="lead">这里准备整理课程笔记、解题思路和感兴趣的数学话题，慢慢把思考积累下来。</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="card-number">01</div>
+            <h3>分析</h3>
+            <p>本学期，我将学习课程数学分析（I）。</p>
+            <span class="status">待更新</span>
+          </article>
+          <article class="card">
+            <div class="card-number">02</div>
+            <h3>代数</h3>
+            <p>本学期，我将学习课程高等代数（I）、代数学（I）（实验班）。</p>
+            <span class="status">待更新</span>
+          </article>
+          <article class="card">
+            <div class="card-number">03</div>
+            <h3>几何</h3>
+            <p>本学期，我将学习课程几何学。</p>
+            <span class="status">待更新</span>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    <div class="section-interest" id="interests">
-      <p class="eyebrow">02 / MY FAVORITE THINGS</p>
-      <h2>我的日常，<span class="accent-line">由这些小事组成。</span></h2>
-      <p class="section-desc">你好，我是张宇涵。</p>
-    </div>
+    <!-- 生活日记：写好第一篇日记后，可替换下面的占位文字 -->
+    <section id="diary" class="content-section" aria-labelledby="diary-title">
+      <div class="container">
+        <div class="section-heading">
+          <small>DAILY LIFE</small>
+          <h2 id="diary-title">生活日记</h2>
+          <p class="lead">除了数学，还有很多值得珍藏的小事。</p>
+        </div>
+        <article class="diary-box">
+          <h3>📖 我的日记，即将开始</h3>
+          <p>这里暂时还没有日记。以后可以写下校园生活、一次散步、一本好书，或某个平凡却难忘的瞬间。</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
-    <div class="section-progress" id="progress">
-      <table class="progress-layout" border="0">
-        <tr>
-          <td class="progress-content">
-            <p class="eyebrow">03 / A WORK IN PROGRESS</p>
-            <h2>正在进行的<span class="accent-line">学习清单。</span></h2>
-            <p class="section-desc">没有必要一夜之间变厉害，今天比昨天多懂一点就很好。</p>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="endnote" id="contact">
-      <span class="endstar">✳</span>
-      <p class="eyebrow">TO BE CONTINUED...</p>
-      <h2>谢谢你来到我的小小世界。</h2>
-      <p>网页还在继续开发中，欢迎大家来访~</p>
-      <p><a class="primary-link" href="journal.html">再看看我的收藏册 <span>↗</span></a> <a class="text-link" href="#top">回到页首 ↑</a></p>
-    </div>
-
-    <div class="footer">
-      <p>© 2026 张宇涵的个人网页</p>
-      <p>Made with curiosity &amp; a little cup of tea. <a href="#top">TOP ↑</a></p>
-    </div>
-  </div>
+  <footer>© 2026 张宇涵 · 记录学习，也记录生活</footer>
 </body>
 </html>
