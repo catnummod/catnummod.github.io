@@ -1,4 +1,3 @@
-
 :root {
   --bg:#f8f7f2; --surface:#fffefa; --ink:#203c37; --leaf:#337361; --leaf-light:#e7eee7;
   --sub:#667a71; --line:#dde5db; --gold:#ba8f55; --rust:#b66c55; --radius:20px;
@@ -161,3 +160,55 @@ main{min-height:65vh}
   .footer-bottom{flex-direction:column;gap:5px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* 统一的简洁目录页：学习内容、专题页面与日记页面沿用日记目录的布局。 */
+.brand-text strong { letter-spacing: 0; font-size: 16px; }
+.page-plain .page-title { margin-bottom: 25px; }
+.listing-description {
+  color: var(--sub);
+  font-size: 14px;
+  line-height: 1.9;
+  margin: -9px 0 31px;
+  max-width: 800px;
+}
+.static-item {
+  grid-template-columns: 85px minmax(0,1fr);
+  cursor: default;
+  transition: none;
+  align-items: start;
+}
+.static-item:hover { transform: none; border-color: var(--line); }
+.static-item .number { line-height: 1.35; }
+.resource-links { margin: 15px 0 0; padding-left: 20px; }
+.resource-links li { margin: 6px 0; }
+.resource-links a { color: var(--leaf); font-weight: 650; font-size: 14px; }
+.resource-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.related-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  font-size: 13px;
+  color: var(--sub);
+}
+.related-links a { color: var(--leaf); font-weight: 700; }
+.related-links a:hover { text-decoration: underline; }
+.entry-content {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 26px 28px;
+  margin-top: 22px;
+}
+.entry-content .entry-date {
+  font: italic 13px Georgia,serif;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.entry-content p {
+  font-size: 15px;
+  line-height: 2.25;
+  color: var(--ink);
+}
